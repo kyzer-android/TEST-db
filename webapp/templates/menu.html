@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+
+        <meta charset="UTF-8">
+        {%if title %}
+            <title>Microblog - {{ title }}</title>
+        {% else %}
+            <title>Bienvenue au Microblog</title>
+        {% endif %}
+        {% block css %}{% endblock %}
+        <link rel="stylesheet" type="text/css" href="{{url_for( 'static', filename='style/style.css')}}" >
+    </head>
+
+    Microdsqblog:
+     </br>
+    <body>
+    <div id="cadre" style="static;">
+        <div class="ligne" style=";border-color:purple;">  <a href='{{url_for("index")}}'>Accueil</a></div>
+         <div class="ligne" style=";border-color:blue;">  <a href='{{url_for("inscription")}}'>Inscription</a></div>
+
+    </div>
+
+        {% if current_user.is_anonymous %}
+<!--        <div id="connexion" style="border-color:red;"><a  href='{{url_for("login")}}'>Connexion</a></div> -->
+         <div id="connexion" style="border-color:red;"><a href='{{url_for("login")}}'>Connexion</a></div>
+        {% else %}
+        <div id="connexion" style="border-color:black;"><a href='{{url_for("logout")}}'>Déconnexion</a></div>
+        {%endif%}
+
+
+
+    </br> </br> </br>
+
+    <hr>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                     <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% block mybody %}{% endblock %}
+    </body>
+</html>
